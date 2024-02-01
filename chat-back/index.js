@@ -5,6 +5,10 @@ const helmet = require("helmet");
 const cors = require("cors");
 const session = require("express-session");
 
+// Redis
+const Redis = require("ioredis");
+const RedisStore = require("connect-redis").default;
+
 require("dotenv").config();
 
 // routes
@@ -39,6 +43,10 @@ app.use(
       sameSite: process.env.ENVIRONMENT === "production" ? "none" : "lax",
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     },
+    store: new RedisStore({
+      client: new Redis(process.env.REDIS_URL),
+      disableTouch: true,
+    }),
   })
 );
 app.use(express.json());
