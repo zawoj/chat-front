@@ -10,6 +10,7 @@ const {
 } = require("./controllers/server.controller");
 const authRouter = require("./controllers/auth/auth.controller");
 const server = require("http").createServer(app);
+const { authorizedUsers } = require("./controllers/socket.controller");
 
 const io = new Server(server, {
   cors: corsConfig,
@@ -23,6 +24,7 @@ app.use(sesstionMiddleware);
 app.use("/auth", authRouter);
 
 io.use(wrap(sesstionMiddleware));
+io.use(authorizedUsers);
 io.on("connect", (socket) => {
   console.log(socket.request.session.user.username, "connected");
 });
