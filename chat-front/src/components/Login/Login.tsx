@@ -1,14 +1,15 @@
-import { Button, ButtonGroup, Heading, VStack } from "@chakra-ui/react";
+import { Button, ButtonGroup, Heading, VStack, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useNavigate } from "react-router";
 import * as Yup from "yup";
 import TextField from "./TextField";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
+  const [error, setError] = useState("");
   return (
     <Formik
       initialValues={{ username: "", password: "" }}
@@ -34,10 +35,12 @@ const Login = () => {
           body: JSON.stringify(vals),
         })
           .catch((err) => {
+            setError(err.message);
             return;
           })
           .then((res) => {
             if (!res || !res.ok || res.status >= 400) {
+              setError("Invalid username or password!");
               return;
             }
             return res.json();
@@ -58,6 +61,11 @@ const Login = () => {
         spacing='1rem'
       >
         <Heading>Log In</Heading>
+        {error && (
+          <Text color='red.500' fontSize='sm'>
+            {error}
+          </Text>
+        )}
         <TextField
           name='username'
           placeholder='Enter username'

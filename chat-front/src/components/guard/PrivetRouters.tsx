@@ -4,7 +4,6 @@ import { UserContext } from "../../context/AuthContext";
 
 const useAuth = () => {
   const user = useContext(UserContext);
-  console.log(user);
   return user && user.loggedIn;
 };
 

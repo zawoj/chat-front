@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt");
 
 // get me
 router.get("/me", (req, res) => {
-  console.log(req.session.user);
   if (req.session.user) {
     res.status(200).json({
       user: {
