@@ -4,9 +4,13 @@ import { Form, Formik } from "formik";
 import { useNavigate } from "react-router";
 import * as Yup from "yup";
 import TextField from "./TextField";
+import { useContext } from "react";
+import { UserContext } from "../../context/AuthContext";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
+
   return (
     <Formik
       initialValues={{ username: "", password: "" }}
@@ -23,7 +27,7 @@ const SignUp = () => {
       onSubmit={(values, actions) => {
         const vals = { ...values };
         actions.resetForm();
-        fetch("http://localhost:4000/auth/register", {
+        fetch("http://localhost:4000/auth/signup", {
           method: "POST",
           credentials: "include",
           headers: {
@@ -42,7 +46,8 @@ const SignUp = () => {
           })
           .then((data) => {
             if (!data) return;
-            console.log(data);
+            setUser({ user: data.user, loggedIn: true });
+            navigate("/");
           });
       }}
     >
@@ -67,6 +72,7 @@ const SignUp = () => {
           placeholder='Enter password'
           autoComplete='off'
           label='Password'
+          type='password'
         />
 
         <ButtonGroup pt='1rem'>

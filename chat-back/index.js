@@ -37,6 +37,7 @@ app.use(
       secure: process.env.ENVIRONMENT === "production",
       httpOnly: true,
       sameSite: process.env.ENVIRONMENT === "production" ? "none" : "lax",
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     },
   })
 );
