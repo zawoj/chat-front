@@ -1,3 +1,6 @@
+const pool = require("../../db");
+const bcrypt = require("bcrypt");
+
 module.exports.handleLogin = (req, res) => {
   pool.query(
     "SELECT * FROM users WHERE username = $1",

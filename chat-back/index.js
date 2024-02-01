@@ -6,7 +6,7 @@ const cors = require("cors");
 const session = require("express-session");
 
 // Redis
-const Redis = require("ioredis");
+const redisClient = require("./redis");
 const RedisStore = require("connect-redis").default;
 
 require("dotenv").config();
@@ -44,7 +44,7 @@ app.use(
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     },
     store: new RedisStore({
-      client: new Redis(process.env.REDIS_URL),
+      client: redisClient,
       disableTouch: true,
     }),
   })
