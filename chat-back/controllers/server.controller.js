@@ -26,10 +26,10 @@ const sesstionMiddleware = session({
 const wrap = (middleware) => (socket, next) =>
   middleware(socket.request, {}, next);
 
-const corsConfig = cors({
+const corsConfig = {
   origin: "http://localhost:3000",
   credentials: true,
-});
+};
 
 module.exports = {
   sesstionMiddleware,

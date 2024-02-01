@@ -8,12 +8,7 @@ const {
   wrap,
   corsConfig,
 } = require("./controllers/server.controller");
-
-require("dotenv").config();
-
-// routes
 const authRouter = require("./controllers/auth/auth.controller");
-
 const server = require("http").createServer(app);
 
 const io = new Server(server, {
@@ -22,8 +17,8 @@ const io = new Server(server, {
 
 app.use(helmet());
 app.use(cors(corsConfig));
-app.use(sesstionMiddleware);
 app.use(express.json());
+app.use(sesstionMiddleware);
 
 app.use("/auth", authRouter);
 

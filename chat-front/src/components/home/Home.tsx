@@ -2,8 +2,11 @@ import { Grid, GridItem, Tabs } from "@chakra-ui/react";
 import Sidebar from "./Sidebar";
 import Chat from "./Chat";
 import ChatContextProvider from "../../context/ChatContext";
+import useSocketSetup from "../../hooks/useSocketSetup";
 
 const Home = () => {
+  useSocketSetup();
+
   return (
     <ChatContextProvider>
       <Grid
