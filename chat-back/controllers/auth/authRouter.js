@@ -4,9 +4,9 @@ const validateForm = require("./validateForm");
 const pool = require("../../db");
 const bcrypt = require("bcrypt");
 
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
   validateForm(req, res);
-
+  console.log("login route hit");
   pool.query(
     "SELECT * FROM users WHERE username = $1",
     [req.body.username],
