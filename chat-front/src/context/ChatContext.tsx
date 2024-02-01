@@ -22,18 +22,7 @@ export const ChatContext = createContext<ChatContextType>({
 
 const ChatContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [chat, setChat] = useState<FriendListResponseType>({
-    friendList: [
-      {
-        id: "1",
-        username: "Jhon",
-        connected: true,
-      },
-      {
-        id: "2",
-        username: "Jhon two",
-        connected: false,
-      },
-    ],
+    friendList: [],
   });
 
   const setFriendList = (friendList: FriendListType[]) => {
