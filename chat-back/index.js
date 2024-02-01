@@ -12,7 +12,7 @@ const RedisStore = require("connect-redis").default;
 require("dotenv").config();
 
 // routes
-const authRouter = require("./controllers/auth/authRouter");
+const authRouter = require("./controllers/auth/auth.controller");
 
 const server = require("http").createServer(app);
 

@@ -1,29 +1,4 @@
-const express = require("express");
-const router = express.Router();
-const validateForm = require("./validateForm");
-const pool = require("../../db");
-const bcrypt = require("bcrypt");
-
-// get me
-router.get("/me", (req, res) => {
-  if (req.session.user) {
-    res.status(200).json({
-      user: {
-        username: req.session.user.username,
-        id: req.session.user.id,
-      },
-      loggedIn: true,
-    });
-    return;
-  }
-  res.status(401).json({
-    message: "Not logged in",
-    loggedIn: false,
-  });
-});
-
-router.post("/login", async (req, res) => {
-  validateForm(req, res);
+module.exports.handleLogin = (req, res) => {
   pool.query(
     "SELECT * FROM users WHERE username = $1",
     [req.body.username],
@@ -67,9 +42,9 @@ router.post("/login", async (req, res) => {
       });
     }
   );
-});
+};
 
-router.post("/signup", async (req, res) => {
+module.exports.handleSignup = async (req, res) => {
   validateForm(req, res);
 
   const existingUser = await pool.query(
@@ -103,6 +78,21 @@ router.post("/signup", async (req, res) => {
     },
     loggedIn: true,
   });
-});
+};
 
-module.exports = router;
+module.exports.handleMe = (req, res) => {
+  if (req.session.user) {
+    res.status(200).json({
+      user: {
+        username: req.session.user.username,
+        id: req.session.user.id,
+      },
+      loggedIn: true,
+    });
+    return;
+  }
+  res.status(401).json({
+    message: "Not logged in",
+    loggedIn: false,
+  });
+};
