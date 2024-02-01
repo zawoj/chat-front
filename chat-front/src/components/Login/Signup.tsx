@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import * as Yup from "yup";
 import TextField from "./TextField";
 import { useContext, useState } from "react";
-import { UserContext } from "../../context/AuthContext";
+import { UserContext } from "../../context/UserContext";
 
 const SignUp = () => {
   const navigate = useNavigate();
